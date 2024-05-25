@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  frontend:
+    image: {{frontend_image}}
+    restart: always
+    ports:
+      - 3000:3000
+
+  backend: &backend
+    image: {{backend_image}}
+    restart: always
+    command: gunicorn --reload core.wsgi:application --bind 0.0.0.0:8000 --workers=2
+    ports:
+      - 8000:8000
+    volumes:
+      - ../.env:/app/.env
+      - {{swarm_app_locale_volume}}:/app/locale
+      - {{swarm_app_static_volume}}:/app/static
+      - {{swarm_app_media_volume}}:/app/media
+    deploy:
+      replicas: 1
+
+  celery_worker:
+    <<: *backend
+    ports: [ ]
+    command: celery -A core.celery worker -l INFO
+    deploy:
+      replicas: 1
+    restart: always
+
+  celery_beat:
+    <<: *backend
+    ports: [ ]
+    command: celery -A core.celery beat -l INFO
+    deploy:
+      replicas: 1
+    restart: always

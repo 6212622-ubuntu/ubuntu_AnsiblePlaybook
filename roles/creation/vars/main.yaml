@@ -1,0 +1,11 @@
+---
+
+swarm_makefile_template: "templates/Makefile.j2"
+swarm_services_template: "templates/services.config.j2"
+swarm_databases_template: "templates/databases.config.j2"
+swarm_redis_template: "templates/redis.config.j2"
+
+
+swarm_services_path: "services/config.yaml"
+swarm_database_path: "databases/postgres-config.yaml"
+swarm_redis_path: "redis/redis-config.yaml"

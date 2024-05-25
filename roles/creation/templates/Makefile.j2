@@ -1,0 +1,8 @@
+STACK={{ swarm_stack_name }}
+
+services-up:
+	set -a &&. ./.env && set +a && docker stack deploy --with-registry-auth -c {{ swarm_services_path }} ${STACK}
+postgres-up:
+	set -a &&. ./.env && set +a && docker stack deploy --with-registry-auth -c {{ swarm_database_path }} ${STACK}
+redis-up:
+	set -a &&. ./.env && set +a && docker stack deploy --with-registry-auth -c {{ swarm_redis_path }} ${STACK}

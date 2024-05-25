@@ -1,0 +1,35 @@
+---
+
+# For Swarm mode 
+swarm_main_folder: test
+frontend_image: "registry.uicgroup.tech/group/project:latest"
+backend_image:  "registry.uicgroup.tech/group/project:latest"
+
+swarm_full_path: /var/devops/{{swarm_main_folder}}
+
+swarm_services: /var/devops/{{swarm_main_folder}}/services
+swarm_databases: /var/devops/{{swarm_main_folder}}/databases
+swarm_volumes: /var/devops/{{swarm_main_folder}}/volumes
+swarm_redis: /var/devops/{{swarm_main_folder}}/redis
+
+swarm_folders: 
+  - "{{swarm_services}}"
+  - "{{swarm_databases}}"
+  - "{{swarm_volumes}}"
+  - "{{swarm_redis}}"
+
+swarm_stack_name: my_first_project
+
+# Swarm volume paths
+swarm_app_static_volume: "/var/devops/{{swarm_main_folder}}/volumes/static"
+swarm_app_media_volume: "/var/devops/{{swarm_main_folder}}/volumes/media"
+swarm_app_locale_volume: "/var/devops/{{swarm_main_folder}}/volumes/locale"
+swarm_app_database_volume: "/var/devops/{{swarm_main_folder}}/volumes/postgres_data"
+swarm_app_redis_volume: "/var/devops/{{swarm_main_folder}}/volumes/redis"
+
+swarm_volume_full_paths: 
+  - "{{swarm_app_static_volume}}"
+  - "{{swarm_app_media_volume}}"
+  - "{{swarm_app_locale_volume}}"
+  - "{{swarm_app_database_volume}}"
+  - "{{swarm_app_redis_volume}}"
