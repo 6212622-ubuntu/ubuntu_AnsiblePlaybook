@@ -1,6 +1,6 @@
 ---
 - name: Install Postgres
-  hosts: prod
+  hosts: ansible_host
   gather_facts: true
   become: true
   roles:
