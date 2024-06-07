@@ -4,6 +4,13 @@ before_script:
 stages:
   - deploy
 
+variables:
+  STACK_NAME: 77uz
+  SWARM_FOLDER: 77.uz
+  PROD_HOST: $PROD_229__PRIV_IP
+  PROD_USER: $PROD_229_USER
+  PROD_PASS: $PROD_229_USER_PASS
+
 deploy:
   stage: deploy
   image: registry.uicgroup.tech/devops/iaac-images:ansible
@@ -18,6 +25,8 @@ deploy:
     - mkdir ~/ansible && cd ~/ansible
     - git clone https://oauth2:$OAUTH_GITLAB_TOKEN@gitlab.uicgroup.tech/devops/uic_ansible/templater_playbook.git && cd templater_playbook
   script:
-    - ansible-playbook playbooks/template/bootstrap.yaml -e "swarm_main_folder=77.uz swarm_stack_name=77uz ansible_host=$PROD_229__PRIV_IP ansible_sudo_pass=$PROD_229_USER_PASS ansible_user=$PROD_229_USER"
+    - ansible-playbook playbooks/template/bootstrap.yaml -e "swarm_main_folder=$SWARM_FOLDER swarm_stack_name=$STACK_NAME ansible_host=$PROD_HOST ansible_sudo_pass=$PROD_PASS ansible_user=$PROD_USER"
   only:
     - master
+  when:
+    - manual
