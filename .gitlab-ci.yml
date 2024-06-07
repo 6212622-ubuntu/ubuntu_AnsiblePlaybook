@@ -28,5 +28,4 @@ deploy:
     - ansible-playbook playbooks/template/bootstrap.yaml -e "swarm_main_folder=$SWARM_FOLDER swarm_stack_name=$STACK_NAME ansible_host=$PROD_HOST ansible_sudo_pass=$PROD_PASS ansible_user=$PROD_USER"
   only:
     - master
-  when:
-    - manual
+  when: manual
