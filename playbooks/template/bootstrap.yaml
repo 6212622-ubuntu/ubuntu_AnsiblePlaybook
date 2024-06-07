@@ -1,6 +1,6 @@
 ---
 - name: Install Bootstrap
-  hosts: hosts
+  hosts: prod
   gather_facts: true
   become: true
   roles:
