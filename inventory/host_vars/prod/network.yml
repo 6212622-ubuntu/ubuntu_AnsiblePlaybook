@@ -1,0 +1,10 @@
+---
+ansible_host: 192.168.15.29
+ansible_user: sarvar
+ansible_port: 22
+ansible_python_interpreter: /usr/bin/python3
+ansible_ssh_private_key_file: ~/.ssh/id_rsa
+ansible_connection: ssh
+ansible_sudo_pass: "test"
+ansible_password: "test"
+
