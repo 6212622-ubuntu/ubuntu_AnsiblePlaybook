@@ -16,8 +16,10 @@ deploy:
     # - ssh-keyscan -t rsa gitlab.uicgroup.tech >> ~/.ssh/known_hosts
     - chmod 700 ~/.ssh
     - mkdir ~/ansible && cd ~/ansible
-    - git clone https://oauth2:$OAUTH_GITLAB_TOKEN@gitlab.uicgroup.tech/devops/uic_ansible/templater_playbook.git && cd templater_playbook
+    - git clone https://oauth2:$OAUTH_GITLAB_TOKEN@gitlab.uicgroup.tech/devops/uic_ansible/templater_playbook.git && ls -la && pwd && cd templater_playbook
   script:
+    - ls -la
+    - pwd
     - ansible-playbook playbooks/template/bootstrap.yaml -e "swarm_main_folder=77.uz swarm_stack_name=77uz ansible_host=$PROD_229__PRIV_IP ansible_sudo_pass=$PROD_229_USER_PASS ansible_user=$PROD_229_USER"
   only:
     - master
