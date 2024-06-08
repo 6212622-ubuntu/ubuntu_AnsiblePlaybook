@@ -5,8 +5,8 @@ stages:
   - deploy
 
 variables:
-  STACK_NAME: 77uz
-  SWARM_FOLDER: 77.uz
+  STACK_NAME: aksentuz
+  SWARM_FOLDER: aksent.uz
   PROD_HOST: $PROD_229__PRIV_IP
   PROD_USER: $PROD_229_USER
   PROD_PASS: $PROD_229_USER_PASS
