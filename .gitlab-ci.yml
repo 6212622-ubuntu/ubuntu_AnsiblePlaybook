@@ -5,8 +5,8 @@ stages:
   - deploy
 
 variables:
-  STACK_NAME: aksentuz
-  SWARM_FOLDER: aksent.uz
+  STACK_NAME: shirinmeva
+  SWARM_FOLDER: shirinmeva
   PROD_HOST: $PROD_229__PRIV_IP
   PROD_USER: $PROD_229_USER
   PROD_PASS: $PROD_229_USER_PASS
