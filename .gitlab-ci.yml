@@ -5,8 +5,8 @@ stages:
   - deploy
 
 variables:
-  STACK_NAME: anatomica
-  SWARM_FOLDER: anatomica
+  STACK_NAME: avloniy
+  SWARM_FOLDER: avloniy
   PROD_HOST: $PROD_229__PRIV_IP
   PROD_USER: $PROD_229_USER
   PROD_PASS: $PROD_229_USER_PASS
