@@ -1,0 +1,31 @@
+before_script:
+  - docker login $CI_REGISTRY --username $CI_REGISTRY_USER --password $CI_REGISTRY_PASSWORD
+
+stages:
+  - deploy
+
+variables:
+  STACK_NAME: avloniy
+  SWARM_FOLDER: avloniy
+  PROD_HOST: $PROD_229__PRIV_IP
+  PROD_USER: $PROD_229_USER
+  PROD_PASS: $PROD_229_USER_PASS
+
+deploy:
+  stage: deploy
+  image: registry.uicgroup.tech/devops/iaac-images:ansible
+  before_script:
+    - eval $(ssh-agent -s)
+    - echo "$PROD_SERVER_PRIV_KEYS" | tr -d '\r' | ssh-add -
+    - mkdir -p ~/.ssh
+    - echo "$PROD_SERVER_PRIV_KEYS" > ~/.ssh/id_rsa
+    - chmod 700 ~/.ssh/id_rsa
+    # - ssh-keyscan -t rsa gitlab.uicgroup.tech >> ~/.ssh/known_hosts
+    - chmod 700 ~/.ssh
+    - mkdir ~/ansible && cd ~/ansible
+    - git clone https://oauth2:$OAUTH_GITLAB_TOKEN@gitlab.uicgroup.tech/devops/uic_ansible/templater_playbook.git && cd templater_playbook
+  script:
+    - ansible-playbook playbooks/template/bootstrap.yaml -e "swarm_main_folder=$SWARM_FOLDER swarm_stack_name=$STACK_NAME ansible_host=$PROD_HOST ansible_sudo_pass=$PROD_PASS ansible_user=$PROD_USER"
+  only:
+    - master
+  when: manual
