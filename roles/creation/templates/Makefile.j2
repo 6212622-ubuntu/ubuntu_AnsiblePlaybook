@@ -6,3 +6,6 @@ postgres-up:
 	set -a &&. ./.env && set +a && docker stack deploy --with-registry-auth -c {{ swarm_database_path }} ${STACK}
 redis-up:
 	set -a &&. ./.env && set +a && docker stack deploy --with-registry-auth -c {{ swarm_redis_path }} ${STACK}
+
+
+
