@@ -30,12 +30,12 @@
 - name: Database template
   template:
     src: "{{ swarm_databases_template }}"
-    dest: "{{ swarm_databases }}/postgres.yaml" 
+    dest: "{{ swarm_databases }}/postgres-config.yaml"
 
 - name: Redis template
   template:
     src: "{{ swarm_redis_template }}"
-    dest: "{{ swarm_redis }}/redis.yaml" 
+    dest: "{{ swarm_redis }}/redis-config.yaml"
 
 
 ### ONLY TEST PURPOSES, DON'T TRY ON YOURSELF
