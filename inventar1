@@ -1,0 +1,6 @@
+[web_servers]
+217.114.0.123 ansible_port=22
+
+[all:vars]
+ansible_user=root
+ansible_ssh_private_key_file= /home/generall/.ssh/id_rsa
