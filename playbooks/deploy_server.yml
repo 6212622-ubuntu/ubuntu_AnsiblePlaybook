@@ -1,0 +1,34 @@
+- name: setting server
+  hosts: web_servers
+  become: yes
+  tasks:
+
+    - name: update packeg
+      ansible.builtin.apt:
+        update_cache: yes
+        upgrade: full
+
+    - name: install utils
+      ansible.builtin.apt:
+        name:
+          - curl
+          - git
+          - ufw
+          - nginx
+          - docker.io
+        state: present
+
+    - name: setting firewal
+      community.general.ufw:
+        rule: allow
+        name: "Nginx Full"
+    
+    - name: allow ssh
+      community.general.ufw:
+        rule: allow
+        name: "ssh"
+
+    - name: enabled ufw
+      community.general.ufw:
+        state: enabled
+        policy: deny
