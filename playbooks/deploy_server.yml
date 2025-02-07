@@ -1,5 +1,5 @@
 - name: Install Docker, Docker Compose, and deploy Nginx
-  hosts: web-server
+  hosts: web_servers
   become: yes
 
   tasks:
@@ -23,7 +23,7 @@
     # Добавление репозитория Docker
     - name: Add Docker repository
       shell: |
-        echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+         echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
     # Установка Docker и Docker Compose
     - name: Install Docker and Docker Compose
@@ -54,10 +54,10 @@
     - name: Copy docker-compose.yml
       copy:
         src: ../files/docker-compose.yml
-        dest: /home/{{ ansible_user }}/docker-compose.yml
+        dest: /{{ ansible_user }}/docker-compose.yml
         mode: '0644'
 
     # Запускаем Nginx через Docker Compose
     - name: Start Nginx container
       shell: |
-        cd /home/{{ ansible_user }} && docker compose up -d
+        cd /{{ ansible_user }}/ && docker compose up -d

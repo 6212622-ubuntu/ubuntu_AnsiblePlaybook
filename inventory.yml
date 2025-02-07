@@ -3,7 +3,7 @@ web_servers:
     217.114.0.123:
       ansible_port: 22
   vars:
-    ansible_user: ansible
+    ansible_user: root
     ansible_ssh_private_key_file: /home/generall/.ssh/id_rsa
     ansible_python_interpreter: /usr/bin/python3
-    ansible_sudo_pass: "qwer"
+ 
