@@ -1,0 +1,44 @@
+---
+- name: Создание пользователя и настройка SSH-доступа
+  hosts: all
+  become: yes
+  vars:
+    new_user: "generall"
+    user_password: ".wda.wda"
+    ssh_public_key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEaXksN2Jv5QIgENcwf0naAv5z4F2KDSfL3l31h+dwhf shaxzod@admin"  # Вставьте свой реальный публичный ключ
+
+  tasks:
+    - name: Создать пользователя {{ new_user }}
+      user:
+        name: "{{ new_user }}"
+        shell: /bin/bash
+        home: "/home/{{ new_user }}"
+        password: "{{ user_password | password_hash('sha512') }}"
+        groups: sudo
+        append: yes
+        create_home: yes
+
+    - name: Создать SSH-папку
+      file:
+        path: "/home/{{ new_user }}/.ssh"
+        state: directory
+        owner: "{{ new_user }}"
+        group: "{{ new_user }}"
+        mode: '0700'
+
+    - name: Добавить публичный ключ
+      copy:
+        content: "{{ ssh_public_key }}"
+        dest: "/home/{{ new_user }}/.ssh/authorized_keys"
+        owner: "{{ new_user }}"
+        group: "{{ new_user }}"
+        mode: '0600'
+
+    - name: Отключить парольный вход для sudo
+      lineinfile:
+        path: "/etc/sudoers"
+        state: present
+        regexp: "^%{{ new_user }} ALL=\\(ALL:ALL\\) ALL"
+        line: "{{ new_user }} ALL=(ALL) NOPASSWD:ALL"
+        validate: 'visudo -cf %s'
+
